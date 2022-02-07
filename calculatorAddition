@@ -1,0 +1,59 @@
+from tkinter import *
+from tkinter import ttk
+root = Tk()
+root.title("Simple Calculator")
+
+e = Entry(root, width = 35, borderwidth = 5)
+e.grid(row = 0, column = 0, columnspan = 3, padx = 10, pady = 10)
+
+result = [0]
+def button_click(number, result):
+    if number == "Clear":   
+        e.delete(0, END)
+        result.clear()
+        result.append(0)
+    elif number == '+': 
+        e.insert(END, ' + ')
+        result.append(0)
+    elif number == "=":
+        for i in range(len(result)-1):
+            result[len(result) - 1] += result[i] 
+        e.delete(0, END)
+        e.insert(0, str(result[len(result) - 1]))
+        temp = result[len(result) - 1]
+        result.clear()
+        result.append(temp)
+    else:
+        e.insert(END, str(number))
+        result[len(result) - 1] = result[len(result) - 1]*10 + number
+    return result
+    
+one = Button(root, text="1", padx = 40, pady = 20, command = lambda: button_click(1, result))
+two = Button(root, text="2", padx = 40, pady = 20, command = lambda: button_click(2, result))
+three = Button(root, text="3", padx = 40, pady = 20, command = lambda: button_click(3, result))
+four = Button(root, text="4", padx = 40, pady = 20, command = lambda: button_click(4, result))
+five = Button(root, text="5", padx = 40, pady = 20, command = lambda: button_click(5, result))
+six = Button(root, text="6", padx = 40, pady = 20, command = lambda: button_click(6, result))
+seven = Button(root, text="7", padx = 40, pady = 20, command = lambda: button_click(7, result))
+eight = Button(root, text="8", padx = 40, pady = 20, command = lambda: button_click(8, result))
+nine = Button(root, text="9", padx = 40, pady = 20, command = lambda: button_click(9, result))
+zero = Button(root, text="0", padx = 40, pady = 20, command = lambda: button_click(0, result))
+plus_sign = Button(root, text="+", padx = 39, pady = 20, command = lambda: button_click('+', result))
+equal_sign = Button(root, text="=", padx = 90, pady = 20, command = lambda: button_click('=', result))
+clear_sign = Button(root, text="Clear", padx = 79, pady = 20, command = lambda: button_click("Clear", result))
+
+zero.grid(row = 4, column = 0)
+one.grid(row = 3, column = 0)
+two.grid(row = 3, column = 1)
+three.grid(row = 3, column = 2)
+four.grid(row = 2, column = 0)
+five.grid(row = 2, column = 1)
+six.grid(row = 2, column = 2)
+seven.grid(row = 1, column = 0)
+eight.grid(row = 1, column = 1)
+nine.grid(row = 1, column = 2)
+clear_sign.grid(row = 4, column = 1, columnspan = 2)
+plus_sign.grid(row = 5, column = 0)
+equal_sign.grid(row = 5, column = 1, columnspan = 2)  
+
+root.mainloop()
